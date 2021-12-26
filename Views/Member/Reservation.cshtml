@@ -1,0 +1,242 @@
+﻿@{
+    ViewData["Title"] = "Reservation";
+    Layout = "../Shared/_templateSiteLayout.cshtml";
+}
+
+
+
+
+<section class="probootstrap-slider flexslider probootstrap-inner">
+    <ul class="slides">
+        <li style="background-image: url(/img/slider_1.jpg);" class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="probootstrap-slider-text text-center">
+                            <p><img src="/img/curve_white.svg" class="seperator probootstrap-animate" alt=""></p>
+                            <h1 class="probootstrap-heading probootstrap-animate">Book A Room</h1>
+                            <div class="probootstrap-animate probootstrap-sub-wrap">Far far away, behind the word
+                                mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row probootstrap-gutter40">
+            <div class="col-md-8">
+                <h2 class="mt0">Reservation Form</h2>
+                <form action="#" method="post" class="probootstrap-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" id="fname" name="fname">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" id="lname" name="lname">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Regular">Reservation Type</label><br />
+                        <input type="radio" checked value="Regular" name="reservationType" />
+                        <label for="Regular">Regular</label>
+                        <input type="radio" value="Repeated"  name="reservationType" />
+                        <label for="Repeated">Repeated</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date-arrival">Time</label>
+                                <div class="form-field">
+                                    <i class="icon icon-calendar2"></i>
+                                    <input type="text" autocomplete="off" class="form-control" id="dateTime" onfocus="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="room">Duration</label>
+                                <div class="form-field">
+                                    <i class="icon icon-chevron-down"></i>
+                                    <select name="duration" id="duration" onchange="LoadRoom()" class="form-control">
+                                        <option selected disabled value="">Select a Duration</option>
+                                        <option value="30">30 min</option>
+                                        <option value="40">40 min</option>
+                                        <option value="50">50 min</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="room">Room</label>
+                                <div class="form-field">
+                                    <i class="icon icon-chevron-down"></i>
+                                    <select name="room" id="room" class="form-control">
+                                        <option value="">Select a Room</option>
+                                        <option value="1">Classic Room</option>
+                                        <option value="2">Ultra Superior Room</option>
+                                        <option value="3">Grand Deluxe Room</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary btn-lg" id="submit" name="submit" value="Reserve">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="probootstrap-half">
+    <div class="image" style="background-image: url(/img/slider_2.jpg);"></div>
+    <div class="text">
+        <div class="probootstrap-animate fadeInUp probootstrap-animated">
+            <h2 class="mt0">Best 5 Star hotel</h2>
+            <p><img src="/img/curve_white.svg" class="seperator" alt="Free HTML5 Bootstrap Template"></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
+                        a large language ocean.</p>
+                </div>
+                <div class="col-md-6">
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
+                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                </div>
+            </div>
+            <p><a href="#" class="link-with-icon white">Learn More <i class=" icon-chevron-right"></i></a></p>
+        </div>
+    </div>
+</section>
+
+@section Stylesheets{
+<link href="~/Datepicker/css/datepicker.material.css" rel="stylesheet" />
+}
+
+@section Scripts{
+<script src="~/Datepicker/datepicker.js"></script>
+<script>
+    $(function () {
+        var dateTime = new Datepicker('#dateTime', {
+            time: true
+        });
+        $('#submit').on('click',function(){
+            var obj = {
+                name : $('#fname').val() + ' ' + $('#lname').val(),
+                date : $('#dateTime').val(),
+                duration : $('#duration').val(),
+                roomId : $('#room').val(),
+                repeated : $("input[name='reservationType']:checked").val()
+            }
+            if(obj.name == " "){
+                toastr.info("Name is required");
+                return;
+            }
+            if(obj.date == ""){
+                toastr.info("Time is required");
+                return;
+            }
+            if(obj.duration == null){
+                toastr.info("Duration is required");
+                return;
+            }
+            if(obj.roomId == ""){
+                toastr.info("Room is required");
+                return;
+            }
+              $.ajax({
+            type: 'POST',
+            url: '/Member/Reserve',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: obj,
+            success: function (result) {
+                if (result == false) {
+                    toastr.error("Reservation Faild");
+                    return;
+                }
+                else {
+                    toastr.success("Success");
+                    return;
+                }
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        });
+        });
+    });
+
+    function LoadRoom() {
+        var startDate = $('#dateTime').val();
+        duration = $('#duration').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Member/LoadRoom',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                startDate: startDate,
+                duration: duration
+            },
+            success: function (result) {
+                var html = '<option value="">Select a Room</option>'
+                if (result == null) {
+                    toastr.error("Room Load Faild");
+                    return;
+                }
+                else {
+                    toastr.success("Success");
+                    result.forEach(element => {
+                        if(element.isFree==false){
+                        html =  html + '<option disabled value="' + element.roomId + '">'+ element.roomName +' <font face="verdana" color="red"> X</font> </option>'
+                            
+                        }
+                        else
+                            html =  html + '<option value="' + element.roomId + '">'+ element.roomName +'</option>'
+                    });
+                }
+                $('#room').empty();
+                $('#room').append(html);
+                //result
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        });
+    }
+
+    function formateDate(date) {
+        //date = new Date(2021, 12, 25, 6, 0, 0);
+        return [date.getMonth() + 1,
+        date.getDate(),
+        date.getFullYear()].join('/') + ' ' +
+            [date.getHours(),
+            date.getMinutes(),
+            date.getSeconds()].join(':');
+    }
+
+</script>
+}
