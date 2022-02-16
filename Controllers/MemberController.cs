@@ -106,9 +106,6 @@ namespace DomMS.Controllers
                                         || (x.FromTime < startDate.TimeOfDay && x.ToTime > newDate.TimeOfDay)
                                         )).Select(X => X.RoomId).Distinct().ToList();// looking for room id list where a room is booked for other user within given time 
             }
-
-
-
             var roomList = _context.Room.Select(x=> new RoomVM{
                 RoomId = x.RoomId,
                 RoomName = x.Name,
