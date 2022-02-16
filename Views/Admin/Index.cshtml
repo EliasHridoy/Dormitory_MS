@@ -1,3 +1,71 @@
 ﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_templateSiteLayoutAdmin.cshtml";
+}
 
+@section Stylesheets{
+    <link href="~/gantt/gantt.min.css" rel="stylesheet" />
+    <style>
+        .form-input {
+            width: 30%;
+            margin: 5px;
+            float: left;
+        }
+    </style>
+}
+
+<div>
+    <input id="inptDate" class="form-control form-inline form-input" value="@DateTime.Now.ToShortDateString()" />
+    <button class="btn btn-primary form-inline form-input" onclick="GanttDataLoad()">Search</button>
+</div>
+
+<br />
+<br />
+<div id="chart" style="overflow:scroll; "></div>
+
+
+@section Scripts{
+    <script src="~/gantt/gantt.min.js"></script>
+    <script src="~/gantt/initialize-gantt.js"></script>
+    <script>
+        $(function () {
+            $("#inptDate").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+            GanttDataLoad();
+        });
+        //Create the chart.
+        //On first render the chart will call its refreshData function on its own.
+        let ganttChart = new Gantt("chart", params);
+
+        function GanttDataLoad() {
+            var date = $("#inptDate").val();
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/LoadGantt',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: ({ date: date }),
+                success: function (result) {
+                    if (result == "Session out") {
+                        window.location = '/Admin/Login';
+                        return;
+                    }
+                    else if (result != null) {
+                        console.log(result);
+                        data = result;
+                        //To refresh the chart's data
+                        ganttChart.refreshData();
+                    }
+                    else {
+                        toastr.info("Data Not Found");
+                    }
+                },
+                error: function () {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+                }
+            });
+        }
+    </script>
 }

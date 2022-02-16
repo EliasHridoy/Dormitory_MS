@@ -1,72 +1,122 @@
 ﻿@model IEnumerable<DomMS.Models.Room>
 
 @{
-ViewData["Title"] = "RoomList";
-Layout = "~/Views/Shared/_templateSiteLayout.cshtml";
+    ViewData["Title"] = "RoomList";
+    Layout = "~/Views/Shared/_templateSiteLayout.cshtml";
 }
 
-    <section class="probootstrap-slider flexslider probootstrap-inner">
-        <ul class="slides">
-            <li style="background-image: url(/img/slider_1.jpg);" class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="probootstrap-slider-text text-center">
-                                <p><img src="/img/curve_white.svg" class="seperator probootstrap-animate" alt=""></p>
-                                <h1 class="probootstrap-heading probootstrap-animate">Best Rooms</h1>
-                                <div class="probootstrap-animate probootstrap-sub-wrap">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </section>
-
-    <section class="probootstrap-section">
-        <div class="container">
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="probootstrap-room">
-                        <a href="#"><img src="/img/img_4.jpg" alt="" class="img-responsive"></a>
-                        <div class="text">
-                            <h3>@item.Name</h3>
-                            <p>Starting from <strong>$29.00/Night</strong></p>
-                            <div class="post-meta mb30">
-                                <ul>
-                                    <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
-                                    <li><i class="icon-user2"></i> 3 Guests</li>
-                                </ul>
-                            </div>
-                            <p><a href="#" class="btn btn-primary" role="button">Reserve now for $29.00</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix visible-sm-block"></div>
-                }
-            </div>
-
-        </div>
-    </section>
-
-    <section class="probootstrap-half">
-        <div class="image" style="background-image: url(/img/slider_2.jpg);"></div>
-        <div class="text">
-            <div class="probootstrap-animate fadeInUp probootstrap-animated">
-                <h2 class="mt0">Best 5 Star hotel</h2>
-                <p><img src="~/img/curve_white.svg" class="seperator" alt="Free HTML5 Bootstrap Template"></p>
+<section class="probootstrap-slider flexslider probootstrap-inner">
+    <ul class="slides">
+        <li style="background-image: url(/img/slider_1.jpg);" class="overlay">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="probootstrap-slider-text text-center">
+                            <p><img src="/img/curve_white.svg" class="seperator probootstrap-animate" alt=""></p>
+                            <h1 class="probootstrap-heading probootstrap-animate">Best Rooms</h1>
+                            <div class="probootstrap-animate probootstrap-sub-wrap">“All great achievements require time.”– Maya Angelou</div>
+                        </div>
                     </div>
                 </div>
-                <p><a href="#" class="link-with-icon white">Learn More <i class=" icon-chevron-right"></i></a></p>
             </div>
+        </li>
+    </ul>
+</section>
+
+<section class="probootstrap-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="probootstrap-room">
+                    <a href="#"><img src="/img/Well being room 1.jpeg" alt="Wellbeing Centre" class="img-responsive"></a>
+                    <div class="text">
+                        <h3>Well being room 1</h3>
+                        <div class="post-meta">
+                            <ul>
+                                <li><span class="review-rate">4.5</span> <i class="icon-star"></i> 252 Reviews</li>
+                                <li><i class="icon-user2"></i> 8 Guests</li>
+                                <li><a href="/Member/Reservation" class="btn btn-primary">Reserve now</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="probootstrap-room">
+                <a href="#"><img src="/img/Well-being room 2.jpeg" alt="Wellbeing Centre" class="img-responsive"></a>
+                <div class="text">
+                    <h3>Well being room 2</h3>
+                    <div class="post-meta">
+                        <ul>
+                            <li><span class="review-rate">4.7</span> <i class="icon-star"></i> 252 Reviews</li>
+                            <li><i class="icon-user2"></i> 5 Guests</li>
+                            <li><a href="/Member/Reservation" class="btn btn-primary">Reserve now</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="probootstrap-room">
+                <a href="#"><img src="/img/Ground floor lounge.jpeg" alt="Wellbeing Centre" class="img-responsive"></a>
+                <div class="text">
+                    <h3>Ground floor lounge</h3>
+                    <div class="post-meta">
+                        <ul>
+                            <li><span class="review-rate">4.9</span> <i class="icon-star"></i> 252 Reviews</li>
+                            <li><i class="icon-user2"></i> 6 Guests</li>
+                            <li><a href="/Member/Reservation" class="btn btn-primary">Reserve now</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="probootstrap-room">
+                <a href="#"><img src="/img/kitchen.jpeg" alt="Wellbeing Centre" class="img-responsive"></a>
+                <div class="text">
+                    <h3>Kitchen</h3>
+                    <div class="post-meta">
+                        <ul>
+                            <li><span class="review-rate">4.8</span> <i class="icon-star"></i> 500 Reviews</li>
+                            <li><a href="/Member/Reservation" class="btn btn-primary">Reserve now</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="probootstrap-room">
+                    <a href="#"><img src="/img/Attic relaxation room.jpeg" alt="Wellbeing Centre" class="img-responsive"></a>
+                    <div class="text">
+                        <h3>Attic relaxation</h3>
+                        <div class="post-meta">
+                            <ul>
+                                <li><span class="review-rate">4.6</span> <i class="icon-star"></i> 252 Reviews</li>
+                                <li><i class="icon-user2"></i> 6 Guests</li>
+                                <li><a href="/Member/Reservation" class="btn btn-primary">Reserve now</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix visible-sm-block"></div>
         </div>
-    </section>
+
+    </div>
+</section>
+
+
+<section class="probootstrap-half">
+    <div class="image" style="background-image: url(/img/garden.jpeg);"></div>
+    <div class="text">
+        <div class="probootstrap-animate fadeInUp probootstrap-animated">
+            <h2 class="mt0">Haileybury <font color="yellow">Wellbeing Centre</font></h2>
+            <p><img src="/img/curve_white.svg" class="seperator" alt="Wellbeing Centre"></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>“We all have our time machines. Some take us back, they’re called memories. Some take us forward, they’re called dreams.”– Jeremy Irons</p>
+                </div>
+                <div class="col-md-6">
+                    <p>“My favorite things in life don’t cost any money. It’s really clear that the most precious resource we all have is time.”– Steve Jobs</p>
+                </div>
+            </div>
+            <p><a href="#" class="link-with-icon white">Learn More <i class=" icon-chevron-right"></i></a></p>
+        </div>
+    </div>
+</section>
 

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "RoomList";
-    Layout = "~/Views/Shared/_templateSiteLayout.cshtml";
+    Layout = "~/Views/Shared/_templateSiteLayoutAdmin.cshtml";
 }
 
 <h2>RoomList</h2>
@@ -66,13 +66,16 @@
             $.get(url, function (result, status) {
 
                 if ("success" !== status) {
-                    toastr.error('Product RequisitionDetails loading failed!');
+                    toastr.error('Failed To Delete!');
                     return;
                 }
                 else if (true == result) {
                     toastr.success("Delete Successful");
-                    window.top.location = '/admin/roomlist';
+                    window.location = '/admin/roomlist';
                     return;
+                }
+                else if (result == "Session out") {
+                    window.location = "/admin/login"
                 }
                 else {
                     toastr.error("Delete Faild");

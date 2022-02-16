@@ -162,3 +162,9 @@ D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Admi
 D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditRoom.cshtml.g.cs
 D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Member\RoomList.cshtml.g.cs
 D:\EliasFile\Tree\FloorManagement\DomMS\bin\Debug\netcoreapp3.1\package-lock.json
+D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Member\Index.cshtml.g.cs
+D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Home\GoogleLogin.cshtml.g.cs
+D:\EliasFile\Tree\FloorManagement\DomMS\bin\Debug\netcoreapp3.1\MailKit.dll
+D:\EliasFile\Tree\FloorManagement\DomMS\bin\Debug\netcoreapp3.1\MimeKit.dll
+D:\EliasFile\Tree\FloorManagement\DomMS\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+D:\EliasFile\Tree\FloorManagement\DomMS\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_templateSiteLayoutAdmin.cshtml.g.cs

@@ -1,28 +1,80 @@
 ﻿@{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_templateSiteLayout.cshtml";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+    <link href="~/AnimatedLogin/style.css" rel="stylesheet" />
+    <link href="~/toastr/toastr.min.css" rel="stylesheet" />
 
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
-            <!-- Icon -->
-            <div class="fadeIn first">
-                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+</head>
+<body>
+
+
+    <div class="container">
+        <div id="login-box">
+            <div class="logo">
+                <img src="~/img/logo.jpeg" style="width:60%;" class="img img-responsive img-circle center-block" />
+                <h1 class="logo-caption"><span class="tweak">A</span>dmin <font color="yellow">L</font>ogin</h1>
+            </div><!-- /.logo -->
+            <div class="controls">
+                <input type="text" id="mail" placeholder="E-Mail" autocomplete="off" class="form-control" />
+                <input type="text" id="password" placeholder="Password" autocomplete="off" class="form-control" />
+                <button type="button" class="btn btn-default btn-block btn-custom" onclick="login()">Login</button>
             </div>
-
-            <!-- Login Form -->
-            <form>
-                <input type="text" id="email" class="fadeIn second" name="email" placeholder="email">
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
-				<a asp-action="Login">Log in</a>
-            </form>
-
-            <!-- Remind Passowrd -->
-            <div id="formFooter">
-                <a class="underlineHover" href="#">Forgot Password?</a>
-            </div>
-
         </div>
     </div>
+
+    <div id="particles-js"></div>
+
+
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'></script>
+    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+    <script src="~/AnimatedLogin/script.js"></script>
+    <script src="~/toastr/toastr.min.js"></script>
+
+    <script>
+        function login() {
+            debugger;
+            var mail = $("#mail").val();
+            var password = $("#password").val();
+            if (mail == "") {
+                toastr.warning("E-Mail Required");
+                return;
+            }
+            if (password == "") {
+                toastr.warning("Password Required");
+                return;
+            }
+
+            $.ajax({
+                url: '/admin/login',
+                type: 'Post',
+                data: {
+                    email: mail,
+                    password: password
+                },
+                async: true,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (result) {
+                    if (result == false) {
+                        toastr.error("User Not Found!!");
+                        return;
+                    }
+                    else {
+                        window.location = "/admin/index";
+                    }
+                },
+                error: function (data, textStatus, jqXHR) {
+                    toastr.error(data + ": " + textStatus + ": " + jqXHR, 'Error!!!');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -15,8 +15,8 @@
                         <div class="probootstrap-slider-text text-center">
                             <p><img src="/img/curve_white.svg" class="seperator probootstrap-animate" alt=""></p>
                             <h1 class="probootstrap-heading probootstrap-animate">Book A Room</h1>
-                            <div class="probootstrap-animate probootstrap-sub-wrap">Far far away, behind the word
-                                mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+                            <div class="probootstrap-animate probootstrap-sub-wrap">
+                                “All great achievements require time.”– Maya Angelou
                             </div>
                         </div>
                     </div>
@@ -36,13 +36,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="fname">First Name</label>
-                                <input type="text" class="form-control" id="fname" name="fname">
+                                <input type="text" readonly class="form-control" id="fname" name="fname" value="@ViewData["FirstName"]">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lname">Last Name</label>
-                                <input type="text" class="form-control" id="lname" name="lname">
+                                <input type="text" readonly class="form-control" id="lname" name="lname" value="@ViewData["LastName"]">
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <label for="Regular">Reservation Type</label><br />
                         <input type="radio" checked value="Regular" name="reservationType" />
                         <label for="Regular">Regular</label>
-                        <input type="radio" value="Repeated"  name="reservationType" />
+                        <input type="radio" value="Repeated" name="reservationType" />
                         <label for="Repeated">Repeated</label>
                     </div>
 
@@ -70,7 +70,7 @@
                                 <label for="room">Duration</label>
                                 <div class="form-field">
                                     <i class="icon icon-chevron-down"></i>
-                                    <select name="duration" id="duration" onchange="LoadRoom()" class="form-control">
+                                    <select name="duration" id="duration" class="form-control">
                                         <option selected disabled value="">Select a Duration</option>
                                         <option value="30">30 min</option>
                                         <option value="40">40 min</option>
@@ -88,10 +88,7 @@
                                 <div class="form-field">
                                     <i class="icon icon-chevron-down"></i>
                                     <select name="room" id="room" class="form-control">
-                                        <option value="">Select a Room</option>
-                                        <option value="1">Classic Room</option>
-                                        <option value="2">Ultra Superior Room</option>
-                                        <option value="3">Grand Deluxe Room</option>
+                                        <option disabled selected value="">Select a Room</option>
                                     </select>
                                 </div>
                             </div>
@@ -104,25 +101,35 @@
                 </form>
             </div>
 
+            <div class="col-md-4" id="divSuggestion">
+                <h4>Algorithm Found These Free Time For Your</h4>
+                <table class="table table-bordered" id="tblFreeRoomSuggestion">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyFreeRoomSuggestion" style="height:250px; overflow-y:scroll;"></tbody>
+                </table>
+            </div>
         </div>
-    </div>
+        </div>
 </section>
 
 <section class="probootstrap-half">
-    <div class="image" style="background-image: url(/img/slider_2.jpg);"></div>
+    <div class="image" style="background-image: url(/img/garden.jpeg);"></div>
     <div class="text">
         <div class="probootstrap-animate fadeInUp probootstrap-animated">
-            <h2 class="mt0">Best 5 Star hotel</h2>
-            <p><img src="/img/curve_white.svg" class="seperator" alt="Free HTML5 Bootstrap Template"></p>
+            <h2 class="mt0">Haileybury <font color="yellow">Wellbeing Centre</font></h2>
+            <p><img src="/img/curve_white.svg" class="seperator" alt="Wellbeing Centre"></p>
             <div class="row">
                 <div class="col-md-6">
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                        a large language ocean.</p>
+                    <p>“We all have our time machines. Some take us back, they’re called memories. Some take us forward, they’re called dreams.”– Jeremy Irons</p>
                 </div>
                 <div class="col-md-6">
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                        is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <p>“My favorite things in life don’t cost any money. It’s really clear that the most precious resource we all have is time.”– Steve Jobs</p>
                 </div>
             </div>
             <p><a href="#" class="link-with-icon white">Learn More <i class=" icon-chevron-right"></i></a></p>
@@ -130,16 +137,27 @@
     </div>
 </section>
 
+
 @section Stylesheets{
-<link href="~/Datepicker/css/datepicker.material.css" rel="stylesheet" />
+    <link href="~/Datepicker/css/datepicker.material.css" rel="stylesheet" />
 }
 
 @section Scripts{
-<script src="~/Datepicker/datepicker.js"></script>
-<script>
+    <script src="~/Datepicker/datepicker.js"></script>
+    <script>
     $(function () {
-        var dateTime = new Datepicker('#dateTime', {
-            time: true
+        $('#dateTime').datetimepicker({
+            //minDate: 0,
+            numberOfMonths: 2,
+            changeMonth: true,
+            changeYear: true,
+            useSeconds: false,
+            stepMinute: 5,
+            showOn: 'focus',
+            onClose: function () { LoadRoom();  }
+        });
+        $('#duration').on('change', function () {
+                LoadRoom();
         });
         $('#submit').on('click',function(){
             var obj = {
@@ -175,8 +193,13 @@
                     toastr.error("Reservation Faild");
                     return;
                 }
+                else if (result == "Session Out") {
+                    window.location = '/Home/GoogleLogin';
+                    return;
+                }
                 else {
                     toastr.success("Success");
+                    window.location = '/Member/Index';
                     return;
                 }
             },
@@ -186,11 +209,19 @@
             }
         });
         });
+        $("#divSuggestion").hide();
     });
-
     function LoadRoom() {
         var startDate = $('#dateTime').val();
-        duration = $('#duration').val();
+        var duration = $('#duration').val();
+        var reservationType = $('input[name="reservationType"]:checked').val();
+
+        if (startDate == null || duration == null || startDate == "" || duration == "") {
+            var html = '<option disabled selected value="">Select a Room</option>'
+            $('#room').empty();
+            $('#room').append(html);
+            return;
+        }
 
         $.ajax({
             type: 'POST',
@@ -198,7 +229,8 @@
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 startDate: startDate,
-                duration: duration
+                duration: duration,
+                reservationType: reservationType
             },
             success: function (result) {
                 var html = '<option value="">Select a Room</option>'
@@ -210,12 +242,13 @@
                     toastr.success("Success");
                     result.forEach(element => {
                         if(element.isFree==false){
-                        html =  html + '<option disabled value="' + element.roomId + '">'+ element.roomName +' <font face="verdana" color="red"> X</font> </option>'
-                            
+                            html = html + '<option style="color:red" disabled value="' + element.roomId + '"> <del>' + element.roomName +' </del></option>'
+
                         }
                         else
                             html =  html + '<option value="' + element.roomId + '">'+ element.roomName +'</option>'
                     });
+                    if (reservationType == "Repeated") { $("#divSuggestion").show(); FreeRoomSuggestion(startDate, duration); }
                 }
                 $('#room').empty();
                 $('#room').append(html);
@@ -227,7 +260,6 @@
             }
         });
     }
-
     function formateDate(date) {
         //date = new Date(2021, 12, 25, 6, 0, 0);
         return [date.getMonth() + 1,
@@ -236,7 +268,34 @@
             [date.getHours(),
             date.getMinutes(),
             date.getSeconds()].join(':');
+        }
+    function FreeRoomSuggestion(startDate, duration) {
+
+        html = "";
+        $("#tbodyFreeRoomSuggestion").empty();
+        $.ajax({
+            type: 'POST',
+            url: '/Member/FreeRoomSuggestion',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: {
+                startDate: startDate,
+                duration: duration
+            },
+            success: function (result) {                
+                console.log(result);
+                if (result != null) {
+                    result.forEach(function (item) {
+                        html += "<tr><td>" + item.fromDate + "</td><td>" + item.fromTime + " - " + item.toTime + "</td><td>" + item.roomName + "</td></tr>";
+                    });
+                    $("#tbodyFreeRoomSuggestion").append(html);
+                }
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        });
     }
 
-</script>
+    </script>
 }

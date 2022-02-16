@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="google-signin-client_id" content="619239529833-s358u6ieqn895ud8nrbp52la7m0gdu28.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DomMS</title>
+
+    <link rel="stylesheet" href="~/css/styles-merged.css">
+    <link rel="stylesheet" href="~/css/style.min.css">
+    <link rel="stylesheet" href="~/css/custom.css">
+    <link href="~/toastr/toastr.min.css" rel="stylesheet" />
+
+    <link href="~/Datepicker/demos.css" rel="stylesheet" />
+    <link href="~/Datepicker/jquery.ui.core.css" rel="stylesheet" />
+    <link href="~/Datepicker/jquery.ui.datepicker.css" rel="stylesheet" />
+    <link href="~/Datepicker/jquery.ui.theme.css" rel="stylesheet" />
+    <link href="~/Datepicker/DateTimePickerCss.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:300,400,700|Rubik:300,400,700,900" rel="stylesheet">
+    @RenderSection("Stylesheets", required: false)
+</head>
+<body>
+
+    <!-- START: header -->
+
+    <header role="banner" class="probootstrap-header">
+        <!-- <div class="container"> -->
+        <div class="row">
+            <a href="/admin/index" class="probootstrap-logo visible-xs"><img src="~/img/logo_sm.png" class="hires" width="120" height="33" alt=""></a>
+
+            <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
+            <div class="mobile-menu-overlay"></div>
+
+            <nav role="navigation" class="probootstrap-nav hidden-xs">
+                <ul class="probootstrap-main-nav">
+                    <li class="active"><a asp-action="index" asp-controller="admin">Home</a></li>
+                    <li><a asp-action="roomlist" asp-controller="admin">Our Rooms</a></li>
+                    <li class="hidden-xs probootstrap-logo-center"><a href="index.html"><img src="/img/logo.jpeg" class="hires" width="181" alt=""></a></li>
+
+                    <li><a href="#">Contact</a></li>
+                    <li><a onclick="signOut()" href="#">Logout</a></li>
+                </ul>
+                <div class="extra-text visible-xs">
+                    <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+                    <h5>Connect With Us</h5>
+                    <ul class="social-buttons">
+                        <li><a href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="icon-facebook2"></i></a></li>
+                        <li><a href="#"><i class="icon-instagram2"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- </div> -->
+    </header>
+    <!-- END: header -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @if (ViewData["Footer"] == null || ViewData["Footer"] != "false")
+    {
+        <!-- START: footer -->
+        <footer role="contentinfo" class="probootstrap-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="probootstrap-footer-widget">
+                            <p class="mt40"><img src="~/img/logo.jpeg" class="hires" width="120"  alt=""></p>
+                            <p>“We all have our time machines. Some take us back, they’re called memories. Some take us forward, they’re called dreams.”– Jeremy Irons</p>
+                            <p><a href="#" class="link-with-icon">Learn More <i class=" icon-chevron-right"></i></a></p>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-offset-4 col-md-4">
+                        <div class="probootstrap-footer-widget">
+                            <h3>Contact</h3>
+                            <ul class="probootstrap-contact-info">
+                                <li><i class="icon-location2"></i> <span>198 West 21th Street, Suite 721 New York NY 10016</span></li>
+                                <li><i class="icon-mail"></i><span>haileybury.wellbeing.centre@gmail.com</span></li>
+                                <li><i class="icon-phone2"></i><span>+123 456 7890</span></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt40">
+                    <div class="col-md-12 text-center">
+                        <ul class="probootstrap-footer-social">
+                            <li><a href=""><i class="icon-twitter"></i></a></li>
+                            <li><a href=""><i class="icon-facebook"></i></a></li>
+                            <li><a href=""><i class="icon-instagram2"></i></a></li>
+                        </ul>
+                        <p>
+                            <small>&copy; 2022 All Rights Reserved.</small>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END: footer -->
+    }
+
+    <script src="~/js/scripts.min.js"></script>
+    <script src="~/js/main.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/toastr/toastr.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="~/Datepicker/jquery-ui-1.10.3.custom.js"></script>
+    <script src="~/Datepicker/DateTimePicker.js"></script>
+    <script>
+        function signOut() {
+            $.get('/admin/Logout', function (result, status) {
+                window.location = '/admin/Login';
+            });
+        }
+        
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

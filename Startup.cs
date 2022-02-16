@@ -27,6 +27,9 @@ namespace DomMS
             services.AddControllersWithViews();
             services.AddDbContext<Floor_ManagementContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddSession();
+            services.AddTransient<IMailService, MailService>();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +44,7 @@ namespace DomMS
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

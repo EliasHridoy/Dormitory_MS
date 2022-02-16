@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="google-signin-client_id" content="619239529833-s358u6ieqn895ud8nrbp52la7m0gdu28.apps.googleusercontent.com">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'>
+    <link href="~/AnimatedLogin/style.css" rel="stylesheet" />
+</head>
+<body>
+
+
+    <div class="container">
+        <div id="login-box">
+            <div class="logo">
+                <img src="~/img/logo.jpeg" style="width:60%;" class="img img-responsive img-circle center-block" />
+                <h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+            </div><!-- /.logo -->
+            <div class="controls">
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                <p id="signinData" style="color:aqua">Your login is successfull</p>
+                <a class="signOutLink" href="#" onclick="signOut();">Sign out</a>
+                <button type="button" class="btn btn-default btn-block btn-custom">Login</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="particles-js"></div>
+
+
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css'></script>
+    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+    <script src="~/AnimatedLogin/script.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        $(function () {
+            $('.btn-custom').css('display', 'none');
+            $('#signinData').css('display', 'none');
+            $('.signOutLink').css('display', 'none');
+            
+            $('.btn-custom').on('click', function () {
+                window.location = '/';
+            })
+        })
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut(); 
+            $('.btn-custom').css('display', 'none');
+            $('#signinData').css('display', 'none');
+            $('.signOutLink').css('display', 'none');
+            $('.g-signin2').css('display', 'block');
+            $.get('/home/Signout', function (result, status) {
+                window.location = '/home/GoogleLogin';
+            });
+        }
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log(id_token);
+            //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            //console.log('Name: ' + profile.getName());
+            //console.log('Image URL: ' + profile.getImageUrl());
+            //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            var mail = profile.getEmail();
+            var name = profile.getName();
+            var imgUrl = profile.getImageUrl();
+            debugger;
+            $('.btn-custom').css('display', 'block');
+            $('#signinData').css('display', 'block');
+            $('.g-signin2').css('display', 'none');
+            $('.signOutLink').css('display', 'block');
+            $.ajax({
+                url: '/Home/RegisterGoogleUser',
+                type: 'Post',
+                data: {
+                    mail: mail,
+                    imgUrl: imgUrl,
+                    name: name
+                },                
+                async: true,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                success: function (result) {
+
+                    if (result.IsSuccess == false) {
+                        toastr.error(result.Message);
+                        return;
+                    }
+                    else {
+                       // window.location = '/';
+                    }
+                    //result
+                },
+                error: function (data, textStatus, jqXHR) {
+                    toastr.error(data + ": " + textStatus + ": " + jqXHR, 'Error!!!');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
